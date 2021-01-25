@@ -24,9 +24,6 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    GET_FAVORITE_WORDS(state, wordList) {
-      state.favoritesList = wordList;
-    },
     UPDATE_FAVORITE_WORD(state, wordList) {
       state.favoritesList = wordList;
     },
@@ -50,7 +47,7 @@ export default new Vuex.Store({
     },
     getFavoriteWords(context) {
       const wordList = JSON.parse(localStorage.getItem("favorites"));
-      context.commit("GET_FAVORITE_WORDS", wordList);
+      context.commit("UPDATE_FAVORITE_WORD", wordList);
     },
     getSearch(context, findStr) {
       return API({
@@ -63,7 +60,7 @@ export default new Vuex.Store({
         }
       });
     },
-    getWord(context, word) {
+    getDetailWord(context, word) {
       return API({
         method: "get",
         url: `${apiUrl}/words`,

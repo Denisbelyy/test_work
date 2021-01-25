@@ -1,5 +1,8 @@
 <template>
-  <Search mode="favorites" />
+  <div>
+    <h1>Starred word</h1>
+    <Search mode="favorites" />
+  </div>
 </template>
 
 <script>

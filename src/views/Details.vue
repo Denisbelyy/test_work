@@ -17,49 +17,29 @@
   </div>
 </template>
 <script>
+import getFullType from "@/shared/getFullType";
+import getFullDesc from "@/shared/getFullDesc";
+
 import { mapActions } from "vuex";
+
 export default {
   name: "DetailWord",
   data() {
     return {
       currentWord: "",
+      getFullType,
+      getFullDesc,
       list: []
     };
   },
   mounted() {
     this.currentWord = this.$route.params.word;
-    this.getWord(this.currentWord).then(res => {
+    this.getDetailWord(this.currentWord).then(res => {
       this.list = res[0].defs;
     });
   },
   methods: {
-    ...mapActions(["getWord"]),
-    getFullDesc(item) {
-      const [, desc] = item.split("\t");
-      return desc;
-    },
-    getFullType(item) {
-      let fullType;
-      const [type] = item.split("\t");
-      switch (type) {
-        case "n":
-          fullType = "noun";
-          break;
-        case "v":
-          fullType = "verb";
-          break;
-        case "adj":
-          fullType = "adjective";
-          break;
-        case "adv":
-          fullType = "adverb";
-          break;
-        default:
-          fullType = "unknown";
-          break;
-      }
-      return fullType;
-    }
+    ...mapActions(["getDetailWord"])
   }
 };
 </script>

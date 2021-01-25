@@ -1,25 +1,19 @@
 export default function getFullType(item) {
-  let fullType;
-  if (!item.defs) {
+  const isObj = typeof item === "object";
+  if (isObj && !item.defs) {
     return "unknown";
   }
-  const [type] = item?.defs[0].split("\t");
+  const [type] = isObj ? item?.defs[0].split("\t") : item.split("\t");
   switch (type) {
     case "n":
-      fullType = "noun";
-      break;
+      return "noun";
     case "v":
-      fullType = "verb";
-      break;
+      return "verb";
     case "adj":
-      fullType = "adjective";
-      break;
+      return "adjective";
     case "adv":
-      fullType = "adverb";
-      break;
+      return "adverb";
     default:
-      fullType = "unknown";
-      break;
+      return "unknown";
   }
-  return fullType;
 }

@@ -19,7 +19,7 @@ const routes = [
     path: "/:word",
     name: "DetailWord",
     component: () =>
-      import(/* webpackChunkName: "Favorites" */ "../views/Details.vue")
+      import(/* webpackChunkName: "DetailWord" */ "../views/Details.vue")
   }
 ];
 

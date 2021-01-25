@@ -11,11 +11,15 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   mounted() {
     if (localStorage.getItem("favorites")) {
-      this.$store.dispatch("getFavoriteWords");
+      this.getFavoriteWords();
     }
+  },
+  methods: {
+    ...mapActions(["getFavoriteWords"])
   }
 };
 </script>

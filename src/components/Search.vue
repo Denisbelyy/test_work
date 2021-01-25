@@ -3,9 +3,9 @@
     <div class="search_params">
       <input
         v-model="search"
-        @input="onSearch"
         class="search_input"
         placeholder="search..."
+        @input="onSearch"
       />
       <div
         v-for="(type, index) in filterType"
@@ -14,10 +14,10 @@
       >
         <input
           v-model="types[type]"
-          @change="filter"
           type="checkbox"
           class="search_checkbox"
           :id="`checkbox-${index}`"
+          @change="filter"
         />
         <label :for="`checkbox-${index}`">
           {{ type }}
@@ -25,9 +25,9 @@
       </div>
     </div>
     <div class="wordbox">
-      <draggable v-model="favoritesList" v-if="mode === 'favorites'">
+      <Draggable v-model="favoritesList" v-if="mode === 'favorites'">
         <Word v-for="(item, index) in listWord" :key="index" :item="item" />
-      </draggable>
+      </Draggable>
       <div v-else>
         <Word
           v-for="(item, index) in listWord"
@@ -43,7 +43,7 @@
 import getFullType from "@/shared/getFullType";
 import { mapActions, mapGetters } from "vuex";
 import Word from "./Word";
-import draggable from "vuedraggable";
+import Draggable from "vuedraggable";
 
 export default {
   name: "Search",
@@ -55,7 +55,7 @@ export default {
     }
   },
   components: {
-    draggable,
+    Draggable,
     Word
   },
   data() {
@@ -83,13 +83,7 @@ export default {
       }
     },
     isFiltered() {
-      let result = false;
-      Object.keys(this.types).forEach(key => {
-        if (this.types[key]) {
-          result = true;
-        }
-      });
-      return result;
+      return Object.keys(this.types).some(key => this.types[key]);
     }
   },
   mounted() {
@@ -102,7 +96,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["getSearch", "addFavoriteWord", "removeFavoriteWord"]),
+    ...mapActions([
+      "getSearch",
+      "addFavoriteWord",
+      "removeFavoriteWord",
+      "updateFavoriteWord"
+    ]),
     onSearch() {
       if (this.mode === "search") {
         this.debounce();
@@ -169,7 +168,7 @@ export default {
       }
     },
     updateList(value) {
-      this.$store.dispatch("updateFavoriteWord", value);
+      this.updateFavoriteWord(value);
       this.listWord = value;
       localStorage.setItem("favorites", JSON.stringify(this.favoritesList));
     },
@@ -183,21 +182,6 @@ export default {
         this.addFavoriteWord(word);
       }
       localStorage.setItem("favorites", JSON.stringify(this.favoritesList));
-    },
-    getFullDesc(item) {
-      if (!item.defs) {
-        return "";
-      }
-      const [, desc] = item?.defs[0].split("\t");
-      return desc;
-    },
-    getWord(word) {
-      this.$router.push({
-        name: "DetailWord",
-        params: {
-          word
-        }
-      });
     }
   }
 };

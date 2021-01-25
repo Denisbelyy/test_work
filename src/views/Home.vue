@@ -1,5 +1,8 @@
 <template>
-  <Search mode="search" />
+  <div>
+    <h1>Word keeper</h1>
+    <Search mode="search" />
+  </div>
 </template>
 
 <script>

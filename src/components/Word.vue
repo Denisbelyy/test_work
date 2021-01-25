@@ -7,7 +7,7 @@
           style="width: 20px; height: 20px;position: relative;top:5px;"
         ></b-icon>
       </span>
-      <span class="wordbox__word-title" @click="getWord(item.word)">
+      <span class="wordbox__word-title" @click="goToDetailWord(item.word)">
         {{ item.word }}
       </span>
       <span class="wordbox__word-type">
@@ -29,6 +29,7 @@
 </template>
 <script>
 import getFullType from "@/shared/getFullType";
+import getFullDesc from "@/shared/getFullDesc";
 import { mapActions, mapState } from "vuex";
 
 export default {
@@ -46,7 +47,8 @@ export default {
   },
   data() {
     return {
-      getFullType
+      getFullType,
+      getFullDesc
     };
   },
   computed: {
@@ -67,14 +69,7 @@ export default {
       }
       localStorage.setItem("favorites", JSON.stringify(this.favoritesList));
     },
-    getFullDesc(item) {
-      if (!item.defs) {
-        return "";
-      }
-      const [, desc] = item?.defs[0].split("\t");
-      return desc;
-    },
-    getWord(word) {
+    goToDetailWord(word) {
       this.$router.push({
         name: "DetailWord",
         params: {
