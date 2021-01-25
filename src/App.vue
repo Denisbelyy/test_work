@@ -45,6 +45,7 @@ export default {
 .main {
   background: #f8f4f4;
   width: 80%;
+  min-height: 80vh;
   margin: 20px auto;
   padding: 20px;
   &__header {

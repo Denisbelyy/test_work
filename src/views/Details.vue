@@ -1,18 +1,27 @@
 <template>
-  <div class="details_word">
-    <h2>{{ currentWord }}</h2>
-    <div v-for="(item, index) in list" :key="index" class="details_word-item">
-      <div class="details_word__word">
-        <span class="details_word__word-type">
-          {{ getFullType(item) }}
-        </span>
-        <span class="details_word__word-desc">
-          {{ getFullDesc(item) }}
-        </span>
+  <div>
+    <a
+      href="#"
+      @click="goBack"
+      style="text-align:left; margin-top:10px;display:block"
+    >
+      Назад
+    </a>
+    <div class="details_word">
+      <h2>{{ currentWord }}</h2>
+      <div v-for="(item, index) in list" :key="index" class="details_word-item">
+        <div class="details_word__word">
+          <span class="details_word__word-type">
+            {{ getFullType(item) }}
+          </span>
+          <span class="details_word__word-desc">
+            {{ getFullDesc(item) }}
+          </span>
+        </div>
       </div>
-    </div>
-    <div v-if="!list">
-      Nothing found
+      <div v-if="!list">
+        Nothing found
+      </div>
     </div>
   </div>
 </template>
@@ -39,7 +48,10 @@ export default {
     });
   },
   methods: {
-    ...mapActions(["getDetailWord"])
+    ...mapActions(["getDetailWord"]),
+    goBack() {
+      this.$router.go(-1);
+    }
   }
 };
 </script>
