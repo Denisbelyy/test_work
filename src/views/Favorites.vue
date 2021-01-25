@@ -1,11 +1,11 @@
 <template>
-  <Search mode="search" />
+  <Search mode="favorites" />
 </template>
 
 <script>
 import Search from "../components/Search.vue";
 export default {
   components: { Search },
-  name: "Home"
+  name: "Favorites"
 };
 </script>
