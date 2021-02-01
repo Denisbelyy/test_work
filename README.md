@@ -1,4 +1,4 @@
-# sovkkombank
+# vue_word_keeper
 
 ## Project setup
 ```
